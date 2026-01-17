@@ -1,26 +1,32 @@
-langchain
-langchain-community
-langchain-openai
-langchain-groq
-langgraph
-openai
-faiss-cpu
-pydantic
-python-dotenv
-beautifulsoup4
-requests
-streamlit
-wikipedia
-pypdf
-plotly
-sqlalchemy
-pymysql
-psycopg2-binary
-pandas==2.1.4
-numpy==1.26.3
+# Core Streamlit
+streamlit>=1.52.2
 
+# LangChain and AI
+langchain>=1.2.0
+langchain-community>=0.4.1
+langchain-openai>=1.1.6
+langgraph>=1.0.5
+openai>=2.14.0
 
+# Vector Store
+faiss-cpu>=1.13.2
 
+# Data Processing
+pandas>=2.1.4
+numpy>=1.26.3
 
+# Visualization
+plotly>=5.18.0
 
+# Utilities
+pydantic>=2.12.5
+python-dotenv>=1.2.1
+beautifulsoup4>=4.14.3
+requests>=2.32.5
+pypdf>=6.5.0
+wikipedia>=1.4.0
 
+# Database Support
+sqlalchemy>=2.0.23
+pymysql>=1.1.0
+psycopg2-binary>=2.9.9
