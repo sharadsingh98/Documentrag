@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+# .gitignore (add these lines if not already present)
+.env
+*.db
+demo_database.db
+*.pyc
+.venv/
+venv/
