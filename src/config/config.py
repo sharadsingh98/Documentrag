@@ -1,36 +1,90 @@
-"""Configuration module for Agentic RAG system"""
+"""Configuration settings for RAG system"""
 
-from uuid import uuid4
 import os
+from pathlib import Path
 from dotenv import load_dotenv
-from langchain.chat_models import init_chat_model
-from config_loader import load_api_key
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from .config_loader import load_api_key
 
 # Load environment variables
 load_dotenv()
 
+
+def load_api_key():
+    """
+    Load API key from environment or Streamlit secrets
+    
+    Returns:
+        str: OpenAI API key
+    """
+    # Try environment variable first
+    api_key = os.getenv("OPENAI_API_KEY")
+    
+    # If not found, try Streamlit secrets (for deployment)
+    if not api_key:
+        try:
+            import streamlit as st
+            api_key = st.secrets.get("OPENAI_API_KEY")
+        except (ImportError, FileNotFoundError, KeyError, AttributeError):
+            pass
+    
+    if not api_key:
+        raise ValueError(
+            "OpenAI API key not found! "
+            "Please set OPENAI_API_KEY in .env file or Streamlit secrets"
+        )
+    
+    return api_key
+
+
 class Config:
-    """Configuration class for RAG system"""
+    """Configuration class for RAG system settings"""
     
-    # API Keys
-    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    # LLM Settings
+    LLM_MODEL = "gpt-4o-mini"
+    TEMPERATURE = 0
     
-    # Model Configuration
-    LLM_MODEL = "openai:gpt-4o"
+    # Embedding Settings
+    EMBEDDING_MODEL = "text-embedding-3-small"
     
     # Document Processing
     CHUNK_SIZE = 500
     CHUNK_OVERLAP = 50
     
-    # Default URLs
+    # Vector Store
+    VECTOR_STORE_K = 4  # Number of documents to retrieve
+    
+    # Default URLs for document ingestion
     DEFAULT_URLS = [
-        "https://lilianweng.github.io/posts/2023-06-23-agent/",
-        "https://lilianweng.github.io/posts/2024-04-12-diffusion-video/"
+        "https://en.wikipedia.org/wiki/Artificial_intelligence",
+        "https://en.wikipedia.org/wiki/Machine_learning",
     ]
     
-    @classmethod
-    def get_llm(cls):
-        """Initialize and return the LLM model"""
-        os.environ["OPENAI_API_KEY"] = cls.OPENAI_API_KEY
-        return init_chat_model(cls.LLM_MODEL)
+    @staticmethod
+    def get_llm():
+        """
+        Get configured LLM instance
+        
+        Returns:
+            ChatOpenAI: Configured LLM instance
+        """
+        api_key = load_api_key()
+        return ChatOpenAI(
+            model=Config.LLM_MODEL,
+            temperature=Config.TEMPERATURE,
+            api_key=api_key
+        )
     
+    @staticmethod
+    def get_embeddings():
+        """
+        Get configured embeddings instance
+        
+        Returns:
+            OpenAIEmbeddings: Configured embeddings instance
+        """
+        api_key = load_api_key()
+        return OpenAIEmbeddings(
+            model=Config.EMBEDDING_MODEL,
+            api_key=api_key
+        )
