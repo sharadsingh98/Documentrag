@@ -1,5 +1,5 @@
 # Core Streamlit
-streamlit>=1.52.2
+streamlit>=1.28.0
 
 # LangChain and AI
 langchain>=1.2.0
@@ -12,15 +12,15 @@ openai>=2.14.0
 faiss-cpu>=1.13.2
 
 # Data Processing
-pandas>=2.1.4
-numpy>=1.26.3
+pandas>=2.0.0
+numpy>=1.24.0
 
 # Visualization
-plotly>=5.18.0
+plotly>=5.17.0
 
 # Utilities
 pydantic>=2.12.5
-python-dotenv>=1.2.1
+python-dotenv>=1.0.0
 beautifulsoup4>=4.14.3
 requests>=2.32.5
 pypdf>=6.5.0
@@ -30,3 +30,8 @@ wikipedia>=1.4.0
 sqlalchemy>=2.0.23
 pymysql>=1.1.0
 psycopg2-binary>=2.9.9
+
+
+
+
+
