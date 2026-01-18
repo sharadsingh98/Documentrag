@@ -3,8 +3,8 @@ from pathlib import Path
 import sys
 import time
 import pandas as pd
-#import plotly.express as px
-#import plotly.graph_objects as go
+import plotly.express as px
+import plotly.graph_objects as go
 from datetime import datetime, timedelta
 import numpy as np
 import threading
